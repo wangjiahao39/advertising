@@ -1,0 +1,83 @@
+.home{
+    width: 100%;
+    height: 100%;
+    background: #f6f6f6;
+}
+.home-header{
+    height: 40px;
+    background: #fff;
+    text-align: right;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
+}
+.home-header span{
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 10px;
+    margin-right: 5px;
+}
+.home-header span p{
+    margin: 0;
+}
+.home-main{
+    padding: 22px;
+}
+.home-list dl{
+    display: inline-block;
+    width: 300px;
+    background: #fff;
+    padding: 16px 22px;
+    box-sizing: border-box;
+    margin-right: 22px;
+}
+.home-list dl dt{
+    width: 30%;
+    float: left;
+}
+.home-list dl dt span{
+    display: inline-block;
+    width: 50%;
+    height: 80%;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 200%;
+    margin-left: 25%;
+    margin-top: 15%;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.05);
+}
+.home-list dl dd{
+    width: 68%;
+    margin: 0;
+    display: inline-block;
+}
+.home-list dl dd h2{
+    margin: 0;
+}
+.home-section{
+    flex: 1;
+    background: #fff;
+    margin-top: 10px;
+}
+.home-up{
+    height: 42px;
+    display: flex;
+    border-bottom: 1px solid #E8E8E8;
+}
+.home-up b{
+    flex: 1;
+    text-align: left;
+    line-height: 42px;
+    font-size: 16px;
+    padding-left: 18px;
+}
+.home-up p{
+    flex: 1;
+    text-align: right;
+    padding-right: 18px;
+}
+.home-up p span{
+    padding: 0 20px;
+    line-height: 42px;
+}
+.home-up p input{
+    border: 1px solid #ccc;
+}

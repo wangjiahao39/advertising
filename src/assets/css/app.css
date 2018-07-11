@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+}
+#app{
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+}
+.app{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.aside{
+    height: 100%;
+    background: #022050;
+}
+.aside a{
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+}
+.ant-menu-dark{
+    background: #022050;
+}
+.aside,.content{
+    height: 100%;
+    float: left;
+}
+.add{
+    height: 40px;
+    width: 100%;
+    background: linear-gradient(to right,#095DE1,#081A6C);
+    line-height: 40px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    padding: 0 20px;
+    margin: 26px 0;
+}
+.add b{
+    font-size: 16px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+.logo{
+    width: 100%;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub{
+    background:#1C2941; 
+}
+.content{
+    flex: 1;
+    position: relative;
+}
