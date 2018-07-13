@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
-//let echarts = require('echarts/lib/echarts');
 import moment from 'moment';
 import '../assets/css/home.css';
-import http from '../utils/http'
-
-import { DatePicker } from 'antd';
+import http from '../utils/http';
+import { DatePicker,Spin } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 const { RangePicker } = DatePicker;
 
 class Home extends Component {
     constructor(){
-        super()
+        super();
         this.onChange = this.onChange.bind(this);
+        this.option = {
+            xAxis: {
+                type: 'category',
+                nameLocation:"start",
+                boundaryGap:false,
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [],
+                type: 'line'
+            }]
+        }
+        this.state={
+            loading:true
+        }
     }
     render() {
         return <div className="home">
@@ -54,60 +73,43 @@ class Home extends Component {
                             <RangePicker onChange={this.onChange} format={'YYYY/MM/DD'} />
                         </div>
                     </div>
-                    <div id="main" ref="main"></div>
+                    <div className="mask">
+                        <Spin spinning={this.state.loading} delay={500} wrapperClassName="graph"></Spin>
+                        <div id="main" ref="main"></div>
+                    </div>
                 </div>
             </div>
         </div>
     }
     componentDidMount() {
         let myChart = echarts.init(this.refs.main);
-        let date = new Date();
-        // console.log(moment().month(date.getMonth()).format("YYYY-MM-DD"))
-        // console.log(moment().add(1, 'days').format("YYYY/MM/DD"))
-        let arr = []
-        for (let i = 1; i <= 7; i++) {
-            arr.unshift(moment().subtract(i, 'days').format("YYYY/MM/DD"))
-        }
-        let option = {
-            xAxis: {
-                type: 'category',
-                data: arr
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                data: [600, 930, 800, 1200, 1290, 1400, 1300],
-                type: 'line'
-            }]
-        };
-        myChart.setOption(option)
+        this.myChart = myChart;
+        this.setDate([moment().subtract(7, 'days').format("YYYY/MM/DD"),moment().format("YYYY/MM/DD")]);
         window.onresize = function () {
-            myChart.resize()
+            myChart.resize();
         }
-
-        http.post('/dsp-report/index',{count:10}).then(res=>{
-            console.log(res)
-            option.series[0].data = res.data.dataY1;
-            setTimeout(()=>{
-                myChart.setOption(option)
-            },2000)
-        })
     }
     onChange(date,dateString){
-        console.log(dateString);
-        this.setDate(dateString[0],dateString[1])
+        this.setDate(dateString);
     }
-    setDate(start,end){
-        let startDate = new Date(start);
-        let endDate = new Date(end);
-        let m1 = moment(start);
-        let m2 = moment(end);
-        console.log(moment(moment(endDate)-moment(startDate)).format("D"));
+    setDate(date){
+        let d = moment.duration(moment(date[1])-moment(date[0])).asDays();
         let arr = [];
-        for (let i = 1; i <= 7; i++) {
-            arr.unshift(moment().subtract(i, 'days').format("YYYY/MM/DD"));
+        for (let i = 0; i <= d; i++) {
+            arr.unshift(moment(date[1]).subtract(i, 'days').format("YYYY/MM/DD"));
         }
+        this.setState({
+            loading:true
+        })
+        let option = this.option;
+        http.post('/dsp-report/index',{count:d+1}).then(res=>{
+            option.xAxis.data = arr;
+            option.series[0].data = res.data.dataY1;
+            this.myChart.setOption(option);
+            this.setState({
+                loading:false
+            })
+        })
     }
 }
 

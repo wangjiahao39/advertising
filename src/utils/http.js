@@ -32,7 +32,8 @@ export default {
         return new Promise((resolve,reject)=>{
             fetch(domin+url,{
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "Token":getCookie('token')
                 }
             })
         })

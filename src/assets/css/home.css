@@ -81,6 +81,10 @@
 .home-up p input{
     border: 1px solid #ccc;
 }
+.mask{
+    position: relative;
+    text-align: center;
+}
 #main{
     width: 100%;
     height: 400px;
