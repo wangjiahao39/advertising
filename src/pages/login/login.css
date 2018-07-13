@@ -20,50 +20,53 @@
     background-size: cover;
     position: relative;
     margin-top: -1px;
+    
+    vertical-align: baseline;
 }
-.login-box{
-    padding: 0 32px;
+#login-box{
     width: 332px;
     min-height: 404px;
     max-height: 468px;
     background: #fff;
-    border: 2px solid #fff;
     position: absolute;
-    box-sizing: border-box;
     top: 0%;
     right: 7%;
 }
-.login-box h3{
-    margin-top: 32px;
+#login-box h3{
     border-bottom: 1px solid #ccc;
     padding-bottom: 17px;
     font-size: 16px;
+    margin: 0 32px;
+    margin-top: 32px;
+    box-sizing: border-box;
 }
-.login-box ul{
+#login-box ul{
     width: 100%;
-    margin-top: 40px;
+    margin-top: 20px;
+    padding: 0 32px;
+    box-sizing: border-box;
 }
-.login-box ul li{
+#login-box ul li{
     width: 100%;
     height: 30px;
     margin-bottom: 15px;
 }
-.login-box ul li input{
+#login-box ul li input{
     width: 100%;
     border: 1px solid #ccc;
     line-height: 30px;
     padding-left: 10px;
     border-radius: 3px;
 }
-.login-box ul li:nth-child(3) input{
+#login-box ul li:nth-child(3) input{
     width: 50%;
 }
-.login-box ul li:nth-child(3) img{
+#login-box ul li:nth-child(3) img{
     width: 40%;
     margin-left: 5%;
 }
-.login-box button{
-    width: 100%;
+#login-box button{
+    width: 80%;
     height: 45px;
     border: none;
     border-radius: 2px;
@@ -71,16 +74,68 @@
     background: #2873ff;
     color: #fff;
     margin-top: 35px;
+    margin-left: 10%;
 }
-.login-box a{
+#login-box a{
     display: inline-block;
     width: 100%;
     text-align: right;
     line-height: 30px;
+    padding: 0 32px;
+    box-sizing: border-box;
 }
-.login-box p{
+#login-box b{
     width: 332px;
     position: absolute;
     bottom: -40px;
+    left: 0;
     color: #fff;
+    text-align: center;
+}
+.error-info{
+    background: red;
+    color: #fff;
+    line-height: 30px;
+    padding: 0 5px;
+    border-radius: 4px;
+    margin: 0 32px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+.high{
+    width: 100%;
+    min-height: 404px;
+    max-height: 468px;
+    border: 2px solid red;
+}
+.login-title{
+    width: 100%;
+    z-index: 10;
+}
+@keyframes suspension {
+    0% {
+        top: 16px;
+    }
+    49% {
+        top: 34px;
+    }
+    50% {
+        top: 34px;
+    }
+    98% {
+        top: 16px;
+    }
+    100% {
+        top: 16px;
+    }
+}
+.iconbg{
+    width: 110px;
+    height: 57px;
+    background: url(../../assets/images/logo.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 37.5%;
+    margin-top: 70px;
+    animation: suspension 1.6s infinite ease-in-out;
 }

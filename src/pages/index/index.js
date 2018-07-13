@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom';
 import { Menu, Icon, Button } from 'antd';
 import Routers from '@/router/router';
+import Img from '../../assets/images/logo.gif';
+import {connect} from 'react-redux'
 const SubMenu = Menu.SubMenu;
 
 class Index extends Component {
@@ -15,7 +17,7 @@ class Index extends Component {
         return (
             <div className="app">
                 <div className="aside" style={{ width: 240 }}>
-                    <img src="src/assets/images/logo.gif" alt="" className="logo" />
+                    <img src={Img} alt="" className="logo" />
                     <div className="add">
                         <b>+</b>
                         <span>新建广告</span>
@@ -51,11 +53,19 @@ class Index extends Component {
                     </Menu>
                 </div>
                 <div className="content">
+                    <div>
+                        <h3>{this.props.user}</h3>
+                    </div>
                     <Routers routes={this.props.routes} />
                 </div>
             </div>
         )
     }
 }
-
-export default Index
+function mapStateToProps(state){
+    console.log(state)
+    return {
+        user:state
+    }
+}
+export default connect(mapStateToProps)(Index)

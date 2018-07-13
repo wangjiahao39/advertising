@@ -1,3 +1,4 @@
+import React,{Component} from 'react';
 //import Home from '../pages/home'
 //import Plan from '../pages/plan'
 // import Unit from '../pages/unit'

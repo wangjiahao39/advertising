@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import echarts from 'echarts/dist/echarts.common';
 import moment from 'moment';
 import '../assets/css/home.css';
 import http from '../utils/http';

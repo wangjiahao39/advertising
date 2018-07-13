@@ -1,13 +1,25 @@
-
 const http = require('http');
 const querystring = require('querystring')
 const fs = require('fs')
+const jwt = require('jsonwebtoken')
 const Mock = require('mockjs')
+
+//token验证
+function verifyToken(token){
+    return new Promise((resolve,reject)=>{
+        jwt.verify(token,"1601E",function(err,decoded){
+            if(err){
+                reject(err)
+            }else{
+                resolve(decoded)
+            }
+        })
+    })    
+}
 // const _ = require('lodash')
 // const multer = require('multer')
 // var storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
-
 //       cb(null, './uploads')
 //     },
 //     filename: function (req, file, cb) {
@@ -19,7 +31,7 @@ const Mock = require('mockjs')
    
 // var upload = multer({ storage: storage })
 
-//const jwt = require('jsonwebtoken')
+
 
 function queryApi(url,methods,params){
     return new Promise((resolve,reject)=>{
@@ -74,41 +86,41 @@ module.exports = function (app) {
     // })
 
     // //login api
-    // app.post('/dsp-admin/user/login', function (req, res) {
-    //     let user = fs.readFileSync(__dirname + '/user.json', { encoding: "utf-8" });
-    //     user = JSON.parse(user);
-    //     let login = req.body;
+    app.post('/dsp-admin/user/login', function (req, res) {
+        let user = fs.readFileSync(__dirname + '/user.json', { encoding: "utf-8" });
+        user = JSON.parse(user);
+        let login = req.body;
         
-    //     let resInfo = {
-
-    //         data: "login failed",
-    //         msg:'登录信息有误',
-    //         status: 1
+        let resInfo = {
+            info: "login failed",
+            user:'登录信息有误',
+            success: 1
       
-    //   }
-    //     user.forEach(usr => {
-    //         if (usr.username == login.username && usr.password == login.password) {
-    //             resInfo.success = 0;
-    //             resInfo.info = "login success";
-    //             resInfo.user ={
-    //                 name:usr.username,
-    //                 time:new Date().toLocaleTimeString(),
-    //                 nickName:"Jacky"
-    //             }
-    //         }
-    //     });
+      }
+        user.forEach(usr => {
+            if (usr.username == login.username && usr.password == login.password) {
+                resInfo.success = 0;
+                resInfo.info = "login success";
+                resInfo.user ={
+                    name:usr.username,
+                    time:new Date().toLocaleTimeString(),
+                    nickName:usr.username
+                }
+            }
+        });
 
-    //     if (resInfo.success == 0) {
-    //         resInfo.token = jwt.sign(login, "1511", {
-    //             expiresIn: 60*60
-    //         })
-    //     }
+        if (resInfo.success == 0) {
+            resInfo.token = jwt.sign(login, "1601E", {
+                expiresIn: 60*60
+            })
+        }
 
-    //     res.end(JSON.stringify(resInfo))
+        res.end(JSON.stringify(resInfo))
 
-    // })
+    })
     //home graph
     app.post('/dsp-report/index',function(req,res){
+        console.log(verifyToken(req.headers.authrization))
         let {startTime,endTime,dimLeft,dimRight,count} = req.body;
         let Random = Mock.Random;
         console.log(count)

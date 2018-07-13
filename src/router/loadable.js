@@ -16,8 +16,7 @@ class Config extends Component{
         </Fragment>
     }
     componentDidMount(){
-        window.chunkpath = this.props.path
-        import(/* webpackFilename:`${chunkpath}` */`@/${this.props.path}`).then((comp)=>{
+        import(`@/${this.props.path}`).then((comp)=>{
             setTimeout(()=>{
                this.setState({
                     Comp:comp.default

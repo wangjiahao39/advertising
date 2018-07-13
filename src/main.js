@@ -4,5 +4,7 @@ import App from './app';
 import './assets/icon/iconfont.css';
 import 'antd/dist/antd.css';
 import './assets/css/app.css';
+import {Provider} from 'react-redux';
+import store from '@/store/store'
 
-ReactDOM.render(<App/>,document.querySelector('#app'))
+ReactDOM.render(<Provider store={store}><App/></Provider>,document.querySelector('#app'))

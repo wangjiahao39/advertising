@@ -11,7 +11,10 @@ module.exports=merge(base,{
         hot:true,
         historyApiFallback:true,
         open:true,
-        quiet:true
+        noInfo:true,
+        proxy:{
+            
+        }
     },
     devtool:'eval-source-map'
 })
