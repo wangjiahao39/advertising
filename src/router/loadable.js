@@ -16,7 +16,7 @@ class Config extends Component{
         </Fragment>
     }
     componentDidMount(){
-        import(`@/${this.props.path}`).then((comp)=>{
+        this.props.compFn().then((comp)=>{
             setTimeout(()=>{
                this.setState({
                     Comp:comp.default
@@ -25,10 +25,10 @@ class Config extends Component{
         })
     }
 }
-function HighComp(path){
+function HighComp(compFn){
     return class extends Component{
         render(){
-            return <Config path={path}/>
+            return <Config path={compFn}/>
         }
     }
 }

@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
-//import Home from '../pages/home'
-//import Plan from '../pages/plan'
-// import Unit from '../pages/unit'
-// import Idea from '../pages/idea'
+//import Home from '@/pages/home'
+import Plan from '@/pages/plan'
+import Unit from '@/pages/unit'
+import Idea from '@/pages/idea'
 import Tools from '@/pages/tools'
-// import Account from '../pages/account'
-// import Customer from '../pages/customer'
+import Account from '@/pages/account'
+import Customer from '@/pages/customer'
 import Loadable from './loadable'
 import Login from '@/pages/login/login'
 import Index from '@/pages/index/index'
@@ -29,19 +29,19 @@ let router = {
             children: [
                 {
                     path: '/index/home',
-                    component: Loadable('pages/home')
+                    component: Loadable(()=>import(/*webpackChunkname:'home'*/'@/pages/home'))
                 },
                 {
                     path: '/index/plan',
-                    component: Loadable('pages/plan')
+                    component: Loadable(()=>import(/*webpackChunkname:'plan'*/'@/pages/plan'))
                 },
                 {
                     path: '/index/unit',
-                    component: Loadable('pages/unit')
+                    component: Unit
                 },
                 {
                     path: '/index/idea',
-                    component: Loadable('pages/idea')
+                    component: Idea
                 },
                 {
                     path: '/index/tools',
@@ -59,11 +59,11 @@ let router = {
                 },
                 {
                     path: '/index/account',
-                    component: Loadable('pages/account')
+                    component: Account
                 },
                 {
                     path: '/index/customer',
-                    component: Loadable('pages/customer')
+                    component: Customer
                 }
             ]
         }

@@ -54,7 +54,7 @@ class Index extends Component {
                 </div>
                 <div className="content">
                     <div>
-                        <h3>{this.props.user}</h3>
+                        {/* <h3>{this.props.user}</h3> */}
                     </div>
                     <Routers routes={this.props.routes} />
                 </div>
