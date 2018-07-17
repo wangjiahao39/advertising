@@ -27,3 +27,11 @@ export var setCookie = function (name, value, day) {
         document.cookie = name + "=" + decodeURI(value);
     }
 };
+
+/**
+ * 删除cookie
+ * @param name cookie的名称
+ */
+export var delCookie = function (name) {
+    setCookie(name, ' ', -1);
+};

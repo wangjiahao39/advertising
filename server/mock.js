@@ -36,4 +36,6 @@ let res = Mock.mock({
     ]
 })
 
+
+
 fs.writeFileSync('meal.json',JSON.stringify(res))

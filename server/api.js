@@ -68,23 +68,6 @@ function queryApi(url,methods,params){
 //     people = ['geddy', 'neil', 'alex'];
 
 module.exports = function (app) {
-    /* app.engine('html', require('ejs').renderFile);
-    app.get('/',(req,res)=>{
-        res.send(ejs.render('<ul><%= people.join(", "); %></ul>', {people: people}))
-    }) */
-    //注册接口
-    // app.post('/user/register', function (req, res) {
-    //     let user = fs.readFileSync('user.json', { encoding: "utf-8" });
-    //     user = JSON.parse(user);
-    //     user.push(req.body);
-    //     fs.writeFile('user.json', JSON.stringify(user), function () {
-    //         res.end(JSON.stringify({
-    //             "success": 1,
-    //             "info": "register success"
-    //         }))
-    //     })
-    // })
-
     // //login api
     app.post('/dsp-admin/user/login', function (req, res) {
         let user = fs.readFileSync(__dirname + '/user.json', { encoding: "utf-8" });
@@ -139,6 +122,34 @@ module.exports = function (app) {
         })
         res.send(mockData)
 
+    })
+
+    let Random = Mock.Random;
+    app.post('/dsp-advert/campaigns/list',(req,res)=>{
+        let data = Mock.mock({
+            "data":{
+                ["list|30"]:[{
+                    "id":()=>Random.increment(),
+                    "name":"计划",
+                    "promotionType": 1, // 推广目的
+                    "status":1,//计划状态 (1:投放中；2:下线-达到日预算；3:下线-达到账户预算； 4:暂停；999:删除)
+                    "dayBudget": ()=>Random.integer(1000,100000), // 计划日预算(单位分)
+                    "exposeNum": ()=>Random.integer(1000,100000),//曝光量
+                    "clickNum": ()=>Random.integer(100,10000),//点击量
+                    "clickRate": ()=>Random.integer(100,10000),//点击率
+                    "clickPrice": ()=>Random.integer(100,10000),//点击均价；  单位是分 消费/点击量
+                    "cpmPrice": ()=>Random.integer(100,1000),//千次展示均价；  单位是分 消费/曝光量
+                    "consumed": ()=>Random.integer(1000,100000), //总消耗
+                    "modifyTime": ()=>Random.date(),
+                    "createTime": ()=>Random.date(),
+                    "operatorId":1,//操作人Id
+                    "operatorName": ()=>Random.cname() //创建人姓名
+                }] ,
+                "total": ()=>Random.integer(1000,100000)
+            },
+            "status":0
+        })
+        res.json(data)
     })
 
     //upload 上传接口

@@ -34,14 +34,6 @@ class Home extends Component {
     }
     render() {
         return <div className="home">
-            <div className="home-header">
-                <span className="iconfont icon-jin"></span>
-                <span className="iconfont icon-tishi"></span>
-                <span>
-                    wangjiahao
-                    账户ID:6875759
-                </span>
-            </div>
             <div className="home-main">
                 <div className="home-list">
                     <dl>
@@ -74,6 +66,26 @@ class Home extends Component {
                             <RangePicker onChange={this.onChange} format={'YYYY/MM/DD'} />
                         </div>
                     </div>
+                    <div className="home-ul">
+                        <ul>
+                            <li>
+                                <span>曝光量(次)</span>
+                                <h2>278,456</h2>
+                            </li>
+                            <li>
+                                <span>点击量(次)</span>
+                                <h2>278,456</h2>
+                            </li>
+                            <li>
+                                <span>曝光量(次)</span>
+                                <h2>278,456</h2>
+                            </li>
+                            <li>
+                                <span>点击量(次)</span>
+                                <h2>278,456</h2>
+                            </li>
+                        </ul>
+                    </div>
                     <div className="mask">
                         <Spin spinning={this.state.loading} delay={500} wrapperClassName="graph"></Spin>
                         <div id="main" ref="main"></div>
@@ -94,10 +106,12 @@ class Home extends Component {
         this.setDate(dateString);
     }
     setDate(date){
-        let d = moment.duration(moment(date[1])-moment(date[0])).asDays();
+        let endDate = moment(new Date(date[1]));
+        let startDate = moment(new Date(date[0]));
+        let d = endDate.diff(startDate,'days');
         let arr = [];
         for (let i = 0; i <= d; i++) {
-            arr.unshift(moment(date[1]).subtract(i, 'days').format("YYYY/MM/DD"));
+            arr.unshift(moment(new Date(date[1])).subtract(i, 'days').format("YYYY/MM/DD"));
         }
         this.setState({
             loading:true

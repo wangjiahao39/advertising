@@ -28,7 +28,7 @@ class Config extends Component{
 function HighComp(compFn){
     return class extends Component{
         render(){
-            return <Config path={compFn}/>
+            return <Config compFn={compFn}/>
         }
     }
 }

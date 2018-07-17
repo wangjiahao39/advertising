@@ -9,7 +9,7 @@ module.exports={
     output:{
         path:path.resolve(process.cwd(),'dist'),
         filename:'[name].js',
-        chunkFilename:'[name][hash].js',
+        chunkFilename:'[name].[hash].js',
         publicPath:'/'
     },
     module:{

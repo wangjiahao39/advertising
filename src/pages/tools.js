@@ -11,14 +11,6 @@ class Tools extends Component{
     render(){
         //console.log(this.props)
         return <div className="tools">
-            <div className="tools-header">
-                <span className="iconfont icon-jin"></span>
-                <span className="iconfont icon-tishi"></span>
-                <span>
-                    wangjiahao
-                    账户ID:6875759
-                </span>
-            </div>
             <div className="tools-content">
                 <h1>工具箱</h1>
                 <Link to="/account">

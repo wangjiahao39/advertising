@@ -55,14 +55,6 @@ class Account extends Component {
         };
         const hasSelected = selectedRowKeys.length > 0;
         return <div className="account">
-            <div className="account-header">
-                <span className="iconfont icon-jin"></span>
-                <span className="iconfont icon-tishi"></span>
-                <span>
-                    wangjiahao
-                    账户ID:6875759
-                </span>
-            </div>
             <div className="account-main">
                 <h1>账号管理</h1>
                 <button className="addnum">+ 新建账号</button>

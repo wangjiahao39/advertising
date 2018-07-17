@@ -1,16 +1,31 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Link } from 'react-router-dom';
-import { Menu, Icon, Button } from 'antd';
+import { Menu, Icon, Button, Dropdown } from 'antd';
 import Routers from '@/router/router';
 import Img from '../../assets/images/logo.gif';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux';
+import {delCookie} from '@/utils/utils';
 const SubMenu = Menu.SubMenu;
+console.log(delCookie)
+function Signout(props){
+    return (
+        <Menu onClick={(e)=>{if(e.key==2){delCookie('token');props.history.replace('/login')}}}>
+            <Menu.Item key="1">
+                欢迎
+            </Menu.Item>
+            <Menu.Item key="2">
+                退出
+            </Menu.Item>
+        </Menu>
+    )
+}
 
 class Index extends Component {
     constructor() {
         super()
         this.state = {
             collapsed: false,
+            user: ''
         }
     }
     render() {
@@ -53,19 +68,28 @@ class Index extends Component {
                     </Menu>
                 </div>
                 <div className="content">
-                    <div>
-                        {/* <h3>{this.props.user}</h3> */}
+                    <div className="header">
+                        <span className="iconfont icon-jin"></span>
+                        <span className="iconfont icon-tishi"></span>
+                        <span>
+                            <Dropdown overlay={<Signout history={this.props.history}/>}>
+                                <div>{this.state.user}<br/>&nbsp;&nbsp;账户ID:6875759</div>
+                            </Dropdown>
+                        </span>
                     </div>
                     <Routers routes={this.props.routes} />
                 </div>
             </div>
         )
     }
+    componentDidMount() {
+        this.setState({ user: localStorage.getItem('username') })
+    }
 }
-function mapStateToProps(state){
+function mapStateToProps(state) {
     console.log(state)
     return {
-        user:state
+        user: state
     }
 }
 export default connect(mapStateToProps)(Index)

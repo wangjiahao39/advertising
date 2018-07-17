@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 //import Home from '@/pages/home'
-import Plan from '@/pages/plan'
+//import Plan from '@/pages/plan'
 import Unit from '@/pages/unit'
 import Idea from '@/pages/idea'
 import Tools from '@/pages/tools'
@@ -29,11 +29,11 @@ let router = {
             children: [
                 {
                     path: '/index/home',
-                    component: Loadable(()=>import(/*webpackChunkname:'home'*/'@/pages/home'))
+                    component: Loadable(()=>import(/*webpackChunkName:'home'*/'@/pages/home'))
                 },
                 {
                     path: '/index/plan',
-                    component: Loadable(()=>import(/*webpackChunkname:'plan'*/'@/pages/plan'))
+                    component: Loadable(()=>import(/*webpackChunkName:'plan'*/'@/pages/plan'))
                 },
                 {
                     path: '/index/unit',

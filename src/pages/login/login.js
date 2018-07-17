@@ -87,6 +87,8 @@ class Login extends Component {
             console.log(this.props)
             if(res.success==0){
                 setCookie('token',res.token)
+                localStorage.setItem('username',res.user.name)
+                this.props.history.replace('/index/home')
                 this.props.dispatch({
                     type:'update_user',
                     payload:res.user.name
