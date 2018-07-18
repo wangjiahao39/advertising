@@ -1,45 +1,102 @@
 import React, { Component } from 'react';
-import http from '../utils/http';
-import {Table} from 'antd';
+import http from '@/utils/http';
+import { Table, Modal ,message} from 'antd';
+import {connect} from 'react-redux';
+import '@/assets/css/plan.css';
 
 class Plan extends Component {
-    constructor(){
+    constructor() {
         super()
-        this.state={
-            dataSource:[]
+        this.state = {
+            dataSource: [],
+            visible: false,
+            delItem: null
         }
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
     render() {
-        /*
-            "id":()=>Random.increment(),
-            "name":"计划",
-            "promotionType": 1, // 推广目的
-            "status":1,//计划状态 (1:投放中；2:下线-达到日预算；3:下线-达到账户预算； 4:暂停；999:删除)
-            "dayBudget": ()=>Random.integer(1000,100000), // 计划日预算(单位分)
-            "exposeNum": ()=>Random.integer(1000,100000),//曝光量
-            "clickNum": ()=>Random.integer(100,10000),//点击量
-            "clickRate": ()=>Random.integer(100,10000),//点击率
-            "clickPrice": ()=>Random.integer(100,10000),//点击均价；  单位是分 消费/点击量
-            "cpmPrice": ()=>Random.integer(100,1000),//千次展示均价；  单位是分 消费/曝光量
-            "consumed": ()=>Random.integer(1000,100000), //总消耗
-            "modifyTime": ()=>Random.date(),
-            "createTime": ()=>Random.date(),
-            "operatorId":1,//操作人Id
-            "operatorName": ()=>Random.cname() //创建人姓名
-        */
+        let that = this;
         let columns = [
             {
-                dataIndex:"name",
-                key:"姓名"
+                title: "计划ID",
+                dataIndex: "key"
             },
             {
-                dataIndex:"name",
-                key:"姓名"
+                title: "计划名称",
+                dataIndex: "name"
+            },
+            {
+                title: "投放目的",
+                dataIndex: "promotionType"
+            },
+            {
+                title: "日预算",
+                dataIndex: "dayBudget"
+            },
+            {
+                title: "今日消耗",
+                dataIndex: "clickPrice"
+            },
+            {
+                title: "总消耗",
+                dataIndex: "consumed"
+            },
+            {
+                title: "曝光量",
+                dataIndex: "exposeNum"
+            },
+            {
+                title: "点击率",
+                dataIndex: "clickRate"
+            },
+            {
+                title: "状态",
+                dataIndex: "status"
+            },
+            {
+                title: '',
+                key: 'action',
+                render: (text, record) => {
+                    function del(record) {
+                        that.setState({
+                            visible: true,
+                            delItem: record
+                        })
+                    }
+                    return (
+                        <span>
+                            <a onClick={() => { del(record) }} href="javascript:;">x</a>
+                        </span>
+                    )
+                }
             }
         ]
-        return <div>
-            <h1>this is Plan</h1>
-            <Table dataSource={this.state.dataSource} columns={}></Table>
+
+        return <div className="plan">
+            <div className="plan-top">
+                <h3>伊利王兆辉</h3>
+                <span>￥126,560.00</span><span>￥560.00</span>
+            </div>
+            <div className="plan-input">
+                <span><b>计划名称</b><input type="text" placeholder="请选择" /></span>
+                <span>推广目的<input type="text" placeholder="请选择" /></span>
+                <span>状态<input type="text" placeholder="请选择" /></span>
+                <button>查询</button>
+            </div>
+            <div className="plan-main">
+                <button>+新建计划</button>
+                <Modal
+                    title="警告"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <p>您确定要删除{this.state.delItem && this.state.delItem.name}吗？</p>
+                </Modal>
+                <Table dataSource={this.state.dataSource} columns={columns}></Table>
+            </div>
+
         </div>
     }
     componentDidMount() {
@@ -54,10 +111,26 @@ class Plan extends Component {
         }).then(res => {
             console.log(res)
             this.setState({
-                dataSource:res.data.list
+                dataSource: res.data.list
             })
         })
     }
+    handleOk() {
+        this.setState({
+            visible: false,
+        });
+        http.get(`/dsp-advert/campaigns/delete/${this.state.delItem.key}`).then(res => {
+            console.log(res.status)
+            if(res.status==0){
+                message.success('删除成功')
+            }
+        })
+    }
+    handleCancel() {
+        this.setState({
+            visible: false,
+        });
+    }
 }
 
-export default Plan
+export default connect(mapStateToProps,mapDispatchToProps)(Plan)

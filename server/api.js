@@ -121,15 +121,14 @@ module.exports = function (app) {
             }
         })
         res.send(mockData)
-
     })
 
     let Random = Mock.Random;
     app.post('/dsp-advert/campaigns/list',(req,res)=>{
         let data = Mock.mock({
             "data":{
-                ["list|30"]:[{
-                    "id":()=>Random.increment(),
+                ["list|300"]:[{
+                    "key":()=>Random.increment(0),
                     "name":"计划",
                     "promotionType": 1, // 推广目的
                     "status":1,//计划状态 (1:投放中；2:下线-达到日预算；3:下线-达到账户预算； 4:暂停；999:删除)
@@ -150,6 +149,15 @@ module.exports = function (app) {
             "status":0
         })
         res.json(data)
+    })
+    //删除计划列表
+    app.get('/dsp-advert/campaigns/delete/:id',(req,res)=>{
+        console.log(req.params)
+        setTimeout(()=>{
+            res.json({
+                status:0
+            })
+        },1000)
     })
 
     //upload 上传接口
